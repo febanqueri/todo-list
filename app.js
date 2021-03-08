@@ -62,14 +62,34 @@ function filterTodo(e){
     todos.forEach(function(todo){
         switch(e.target.value){
             case "all":
-                todo.style.display = 'flex';
+                todo.style.display = "flex";
                 break;
             case "completed":
-                if(todo.classList.contains('completed')){
-                    todo.style.dysplay = 'flex';
+                if(todo.classList.contains("completed")){
+                    todo.style.dysplay = "flex";
                 }else{
                     todo.style.display = 'none';
                 }
+            case "uncomplete":
+                if(!todo.classList.constains("completed")){
+                    todo.style.dysplay = "flex";
+                }else{
+                    todo.style.display = 'none';
+                }
+                break;
         }
     });
+}
+
+function saveLocalTodos(todo){
+    //CHECK --- HEY do I açready have a thing if there?
+    let todos;
+    if(localStorage.getItem('todos') === null){
+        todos=[];
+    }else{
+        todos = JSON.parse(localStorage.getItem('todo'));
+    }
+    todos.push(todo);
+    localStorage.setItem('todos', JSON.stringify(todos));
+    
 }
