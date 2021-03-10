@@ -23,6 +23,10 @@ function addTodo(event){
     newTodo.innerText = todoInput.value;
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
+
+    // ADD TODO TO LOVAL STORAGE
+    saveLocalTodos(todoInput.value);
+
     //CHECK MARK BUTTON
     const completedButton = document.createElement('button');
     completedButton.innerHTML = '<i class="fas fa-check"></i>';
@@ -84,12 +88,29 @@ function filterTodo(e){
 function saveLocalTodos(todo){
     //CHECK --- HEY do I açready have a thing if there?
     let todos;
-    if(localStorage.getItem('todos') === null){
+    if(localStorage.getItem("todos") === null){
         todos=[];
     }else{
-        todos = JSON.parse(localStorage.getItem('todo'));
+        todos = JSON.parse(localStorage.getItem("todo"));
     }
+
     todos.push(todo);
-    localStorage.setItem('todos', JSON.stringify(todos));
+    localStorage.setItem("todos", JSON.stringify(todos));
     
+}
+
+
+function getTodos(){
+    let todos;
+
+    //CHECK --- HEY do I açready have a thing if there?
+    let todos;
+    if(localStorage.getItem("todos") === null){
+        todos=[];
+    }else{
+        todos = JSON.parse(localStorage.getItem("todo"));
+    }
+    todos.forEach(function(todos)){
+        
+    }
 }
