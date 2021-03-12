@@ -5,9 +5,10 @@ const todoList = document.querySelector(".todo-list");
 const filterOption = document.querySelector(".filter-todo");
 
 //Etapa 2 - Listeners
-todoButton.addEventListener('click', addTodo);
-todoList.addEventListener('click', deleteCheck);
-filterOption.addEventListener('click', filterTodo);
+document.addEventListener("DOMContentLoaded", getTodos)
+todoButton.addEventListener("click", addTodo);
+todoList.addEventListener("click", deleteCheck);
+filterOption.addEventListener("click", filterTodo);
 
 
 //Etapa 3 - Functions
@@ -49,6 +50,7 @@ function deleteCheck(e){
     if(item.classList[0] === 'trash-btn'){
         const todo = item.parentElement;
         todo.classList.add("fall");
+        removeLocalTodos(todo);
         todo.addEventListener('transitionend', function(){
             todo.remove();
         });
@@ -86,22 +88,20 @@ function filterTodo(e){
 }
 
 function saveLocalTodos(todo){
-    //CHECK --- HEY do I açready have a thing if there?
+    //CHECK --- HEY do I already have a thing if there?
     let todos;
-    if(localStorage.getItem("todos") === null){
+    if (localStorage.getItem("todos") === null){
         todos=[];
-    }else{
+    } else{
         todos = JSON.parse(localStorage.getItem("todo"));
     }
 
     todos.push(todo);
     localStorage.setItem("todos", JSON.stringify(todos));
-    
 }
 
-
 function getTodos(){
-    let todos;
+    console.log("hello");
 
     //CHECK --- HEY do I açready have a thing if there?
     let todos;
@@ -133,4 +133,18 @@ function getTodos(){
         //APPEND TO LIST
         todoList.appendChild(todoDiv);
     });
+}
+
+function removeLocalTodos(todo){
+    //CHECK --- HEY do I açready have a thing if there?
+    let todos;
+    if(localStorage.getItem("todos") === null){
+        todos=[];
+    }else{
+        todos = JSON.parse(localStorage.getItem("todo"));
+    }
+    const todoIndex = todo.children[0].innerText;
+    console.log(todos.indexOf("potato"));
+    todos.splice(todo.indexOf(todoIndex), 1);
+    localStorage.setItem("todos", JSON.stringify(todos));
 }
